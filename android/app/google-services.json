@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1030985122607",
+    "project_id": "masterremote-40244",
+    "storage_bucket": "masterremote-40244.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030985122607:android:eb5aa2d9bfd5eea128d7da",
+        "android_client_info": {
+          "package_name": "com.example.master_teste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030985122607-qbj2bugtm4nfe0js6805ig2u4mcdipfg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjpHtuuKRKbyGtSfJD2FzZ6Xv3FdlRu5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030985122607-qbj2bugtm4nfe0js6805ig2u4mcdipfg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

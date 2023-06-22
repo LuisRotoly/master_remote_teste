@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:master_teste/helper/shared_preference.dart';
 import 'package:master_teste/home/home_screen.dart';
@@ -34,6 +35,20 @@ class _SignInState extends State<SignIn> {
     );
   }
 
+  Future<bool> verifyCredentials() async {
+    QuerySnapshot<Map<String, dynamic>> response = await FirebaseFirestore
+        .instance
+        .collection("user")
+        .where("userName", isEqualTo: userName.text)
+        .where("password", isEqualTo: password.text)
+        .get();
+    if (response.docs.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void doLogin(BuildContext context) async {
     setState(() {
       wrongCredentials = false;
@@ -41,7 +56,7 @@ class _SignInState extends State<SignIn> {
       isLoading = true;
     });
     if (!isEmptyValues()) {
-      if (userName.text == "admin" && password.text == "admin") {
+      if (await verifyCredentials()) {
         await SharedPreference.saveUserInfoToSharedPrefs(userName.text)
             .then((_) => gotoHomePage(context));
       } else {

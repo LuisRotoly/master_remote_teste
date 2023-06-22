@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:master_teste/helper/shared_preference.dart';
 import 'package:master_teste/signIn/sign_in.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'construction/under_construction_screen.dart';
 import 'home/home_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -27,7 +30,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  getLoggedInState() async {
+  void getLoggedInState() async {
     await SharedPreference.getUserLoggedInSharedPreference().then((userName) {
       setState(() {
         userNameLoggedIn = userName;
