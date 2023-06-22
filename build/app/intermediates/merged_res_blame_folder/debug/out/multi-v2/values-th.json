@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/luisrotoly/Documentos/Projetos/master_teste/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-th/values-th.xml",
+            "outputFile": "/home/luisrotoly/Documentos/Projetos/master_remote_teste/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-th/values-th.xml",
             "map": [
                 {
                     "source": "/home/luisrotoly/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/values-th/values-th.xml",

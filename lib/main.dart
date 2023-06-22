@@ -1,65 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:master_teste/helper/shared_preference.dart';
+import 'package:master_teste/signIn/sign_in.dart';
+
+import 'construction/under_construction_screen.dart';
+import 'home/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Master Remote Teste Luis',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Master Remote Teste Luis'),
-    );
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String? userNameLoggedIn;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    getLoggedInState();
+    super.initState();
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
+  getLoggedInState() async {
+    await SharedPreference.getUserLoggedInSharedPreference().then((userName) {
+      setState(() {
+        userNameLoggedIn = userName;
+        isLoading = false;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Master Remote Luis',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      routes: {
+        "/home-screen": (ctx) => const HomeScreen(),
+        "/sign-in": (ctx) => const SignIn(),
+        "/under-construction": (ctx) => const UnderConstructionScreen(),
+      },
+      home: isLoading
+          ? SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  CircularProgressIndicator(),
+                ],
+              ),
+            )
+          : (userNameLoggedIn != null)
+              ? const HomeScreen()
+              : const SignIn(),
     );
   }
 }
